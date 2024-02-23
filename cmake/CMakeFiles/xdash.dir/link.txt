@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/xdash.dir/src/main.cpp.o CMakeFiles/xdash.dir/src/xdash.cpp.o -o xdash  /usr/lib/libSM.so /usr/lib/libICE.so /usr/lib/libX11.so /usr/lib/libXext.so -lcairo 

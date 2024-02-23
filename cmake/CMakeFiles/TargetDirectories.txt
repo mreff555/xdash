@@ -1,0 +1,3 @@
+/home/dan/src/xdash/cmake/CMakeFiles/xdash.dir
+/home/dan/src/xdash/cmake/CMakeFiles/edit_cache.dir
+/home/dan/src/xdash/cmake/CMakeFiles/rebuild_cache.dir
