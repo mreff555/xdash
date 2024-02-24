@@ -8,7 +8,8 @@ logDir(DEFAULT_LOG_DIR),
 logToStdout(DEFAULT_LOGTO_STDOUT),
 logToStderr(DEFAULT_LOGTO_STDERR),
 logFilePrefix(DEFAULT_LOG_FILE_PREFIX),
-maxLogHistory(DEFAULT_MAX_LOG_HISTORY)
+maxLogHistory(DEFAULT_MAX_LOG_HISTORY),
+timeFormat(DEFAULT_TIME_FORMAT)
 {}
 
 unsigned int Config::getPercentOverlayFill() const
@@ -106,6 +107,25 @@ bool Config::setMaxLogHistory(const short value)
     if(value > -2)
     {
         this->maxLogHistory = value;
+        rtn = true;
+    }
+    return rtn;
+}
+
+
+
+
+std::string Config::getTimeFormat() const
+{
+    return this->timeFormat;
+}
+
+bool Config::setTimeFormat(const std::string value)
+{
+    bool rtn = false;
+    if(1 /*TODO: error handling*/)
+    {
+        this->timeFormat = value;
         rtn = true;
     }
     return rtn;

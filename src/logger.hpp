@@ -3,6 +3,7 @@
 
 #include <loglevel.hpp>
 #include <chrono>
+#include <fstream>
 #include <string>
 #include <map>
 #include <memory>
@@ -17,7 +18,7 @@ namespace xdash
 
         virtual ~Logger() = default;
 
-        void log(std::string value);
+        void log(LogLevelE lvl,std::string value);
 
         LogLevelE getLogLevel() const;
 
@@ -35,8 +36,14 @@ namespace xdash
 
         bool setMaxLogHistory(const short value);
 
+        std::string getTimeFormat() const;
+
+        bool setTimeFormat(const std::string value);
+
         private:
-        auto getTimeNow() const;
+        bool init();
+
+        std::string getTimeNow() const;
 
         std::shared_ptr<Config> mConfig;
         LogLevelE logLevel;
@@ -44,6 +51,8 @@ namespace xdash
         std::string logFilePrefix;
         std::map<LogLevelE, std::string> logLevelMap;
         short maxLogHistory;
+        std::fstream logFd;
+        std::string timeFormat;
     };
 }
 

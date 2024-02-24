@@ -12,7 +12,8 @@ constexpr char* DEFAULT_LOG_DIR = "./log";
 constexpr char* DEFAULT_LOG_FILE_PREFIX = "xdash_log_";
 constexpr bool DEFAULT_LOGTO_STDOUT = false;
 constexpr bool DEFAULT_LOGTO_STDERR = false;
-constexpr short DEFAULT_MAX_LOG_HISTORY = 5;            // -1 will disable the logger
+constexpr short DEFAULT_MAX_LOG_HISTORY = 5;   
+constexpr char* DEFAULT_TIME_FORMAT = "UTC: %Y-%m-%d %H:%M:%S";         // -1 will disable the logger
 
 namespace xdash
 {
@@ -51,7 +52,11 @@ namespace xdash
 
         bool setMaxLogHistory(const short value);
 
-        private:
+        std::string getTimeFormat() const;
+
+        bool setTimeFormat(const std::string value);
+
+        private:        
         unsigned short percentOverlayFill;
 
         LogLevelE logLevel;
@@ -65,6 +70,8 @@ namespace xdash
         bool logToStderr;
 
         short maxLogHistory;
+
+        std::string timeFormat;
     };
 }
 

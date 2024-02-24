@@ -21,6 +21,7 @@ mDisplay(XOpenDisplay(NULL)),
 mRootWindow(DefaultRootWindow(mDisplay)),
 mDefaultScreen(XDefaultScreen(mDisplay))
 {
+    mLogger->log(LOG_LEVEL_TRACE, "Starting Overlay");
     this->mAttrs.override_redirect = true;
     if (!XMatchVisualInfo(mDisplay, DefaultScreen(mDisplay), 32, TrueColor, &mVinfo))
     {
@@ -38,6 +39,7 @@ mDefaultScreen(XDefaultScreen(mDisplay))
 Overlay::~Overlay()
 {
     XCloseDisplay(this->mDisplay);
+    mLogger->log(LOG_LEVEL_TRACE, "Stopping Overlay");
 }
 
 void Overlay::drawOverlay()
@@ -51,6 +53,7 @@ void Overlay::drawOverlay()
     int y = static_cast<unsigned>((rHeight - (rHeight * wFill)) / 2.0);
     int w = static_cast<unsigned>(rWidth * wFill);
     int h = static_cast<unsigned>(rHeight * wFill);
+    mLogger->log(LOG_LEVEL_INFO, "Test loginfo");
     printf("Root window: %f x %f - %f\n", rWidth, rHeight, wFill);
     printf("x/y/w/h: %d x %d x %d x %d\n", x, y, w, h);
 
