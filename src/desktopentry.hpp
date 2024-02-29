@@ -1,14 +1,3 @@
-// *** EXAMPLE ***
-// [Desktop Entry]
-// Name=Typora
-// GenericName=Markdown Editor
-// Exec=typora %U
-// Icon=typora
-// Type=Application
-// StartupNotify=true
-// Categories=Office;WordProcessor;
-// MimeType=text/markdown;text/x-markdown;
-
 #ifndef DESKTOP_ENTRY_HPP
 #define DESKTOP_ENTRY_HPP
 
