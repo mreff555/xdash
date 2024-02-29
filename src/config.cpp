@@ -9,7 +9,8 @@ logToStdout(DEFAULT_LOGTO_STDOUT),
 logToStderr(DEFAULT_LOGTO_STDERR),
 logFilePrefix(DEFAULT_LOG_FILE_PREFIX),
 maxLogHistory(DEFAULT_MAX_LOG_HISTORY),
-timeFormat(DEFAULT_TIME_FORMAT)
+timeFormat(DEFAULT_TIME_FORMAT),
+desktopSearchPath(DEFAULT_DESKTOP_SEARCH_PATH)
 {}
 
 unsigned int Config::getPercentOverlayFill() const
@@ -112,9 +113,6 @@ bool Config::setMaxLogHistory(const short value)
     return rtn;
 }
 
-
-
-
 std::string Config::getTimeFormat() const
 {
     return this->timeFormat;
@@ -126,6 +124,22 @@ bool Config::setTimeFormat(const std::string value)
     if(1 /*TODO: error handling*/)
     {
         this->timeFormat = value;
+        rtn = true;
+    }
+    return rtn;
+}
+
+std::string Config::getDesktopSearchPath() const
+{
+    return this->desktopSearchPath;
+}
+
+bool Config::setDesktopSearchPath(const std::string value)
+{
+    bool rtn = false;
+    if(1 /*TODO: error handling*/)
+    {
+        this->desktopSearchPath = value;
         rtn = true;
     }
     return rtn;

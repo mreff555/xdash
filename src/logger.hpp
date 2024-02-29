@@ -44,7 +44,6 @@ namespace xdash
         bool init();
 
         std::string getTimeNow() const;
-
         std::shared_ptr<Config> mConfig;
         LogLevelE logLevel;
         std::string logDir;

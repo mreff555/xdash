@@ -6,7 +6,8 @@ using namespace xdash;
 AppDs::AppDs(
     std::shared_ptr<Config> config,
     std::shared_ptr<Logger> logger)
-:mConfig(config), mLogger(logger)
+:mConfig(config), mLogger(logger),
+desktopSearchPath(mConfig->getDesktopSearchPath())
 {
     mLogger->log(LOG_LEVEL_INFO, "Starting AppDs");
 }
