@@ -14,7 +14,7 @@ namespace xdash
             std::shared_ptr<Config> config,
             std::shared_ptr<Logger> logger);
 
-        virtual ~AppDs() = default;
+        virtual ~AppDs();
 
         private:
         std::shared_ptr<Config> mConfig;

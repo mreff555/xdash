@@ -5,6 +5,8 @@
 #include <string>
 #include <iomanip>
 #include <sstream>
+#include <cstdio>
+#include <stdarg.h>
 
 using namespace xdash;
 Logger::Logger(std::shared_ptr<xdash::Config> config)
@@ -26,23 +28,30 @@ timeFormat(mConfig->getTimeFormat())
     };
 
     init();
+    this->log(LOG_LEVEL_INFO, "Starting Logger");
 }
 
-void Logger::log(LogLevelE lvl, std::string value)
+Logger::~Logger()
 {
-    if(lvl <= logLevel)
-    {
-        std::string logOut = "LOG::";
-        logOut += this->logLevelMap[this->logLevel];
-        logOut += "[";
-        logOut += std::string(this->getTimeNow());
-        logOut += "]: ";
-        logOut += value;
-        logFd.write(logOut.c_str(), logOut.size());
+    this->log(LOG_LEVEL_INFO, "Stopping Trigger");
+    fclose(logFd);
+}
 
-        //TODO: need to implement writing to stderr/stdout optionally.
-    }
-
+void Logger::log(LogLevelE lvl, const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    std::string logFmtStr = "LOG::";
+    logFmtStr += this->logLevelMap[this->logLevel];
+    logFmtStr += ":[";
+    logFmtStr += std::string(this->getTimeNow());
+    logFmtStr += "]: ";
+    logFmtStr += format;
+    logFmtStr += '\n';
+    size_t sz = logFmtStr.size();
+    char logFmt[sz];
+    vfprintf(logFd, logFmtStr.c_str(), args);
+    va_end(args);
 }
 
 LogLevelE Logger::getLogLevel() const
@@ -136,25 +145,24 @@ bool Logger::init()
 
     // Increment all log history files by 1 so the new file
     // can be set to 0
-    for(int i = 0; i < this->maxLogHistory; ++i)
+    for(int i = maxLogHistory; i >= 0; --i)
     {
         std::filesystem::path filePath = fsPath;
         std::string filename = getLogFilePrefix();
         filename += std::to_string(i);
         filePath /= filename;
-        //filePath.append(std::string(getLogFilePrefix() + std::to_string(i)));
-        printf("%s\n", filePath.string().c_str());
         if(std::filesystem::exists(filePath))
         {
             std::filesystem::path newPath = fsPath;
-            newPath.append(std::string(getLogFilePrefix() + std::to_string(i + 1)));
-            std::filesystem::rename(fsPath, newPath);
+            newPath /= std::string(getLogFilePrefix() + std::to_string(i + 1));
+            std::filesystem::rename(filePath, newPath);
         }
     }
 
-    std::ios_base::openmode openmode = std::ios_base::out | std::ios_base::trunc;    
-    logFd.open(std::string(this->logDir + this->logFilePrefix + std::to_string(0)), openmode);
-    if(logFd.is_open())
+    logFd = nullptr;
+    std::string filePath(getLogDir() + "/" + getLogFilePrefix() + std::to_string(0));
+    logFd = fopen(filePath.c_str(), "w+");
+    if(logFd)
     {
         success = true;
     }

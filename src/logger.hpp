@@ -3,10 +3,10 @@
 
 #include <loglevel.hpp>
 #include <chrono>
-#include <fstream>
 #include <string>
 #include <map>
 #include <memory>
+#include <cstdio>
 
 namespace xdash
 {
@@ -16,9 +16,9 @@ namespace xdash
         public:
         Logger(std::shared_ptr<Config> config);
 
-        virtual ~Logger() = default;
+        virtual ~Logger();
 
-        void log(LogLevelE lvl,std::string value);
+        void log(LogLevelE lvl, const char *format, ...);
 
         LogLevelE getLogLevel() const;
 
@@ -51,7 +51,7 @@ namespace xdash
         std::string logFilePrefix;
         std::map<LogLevelE, std::string> logLevelMap;
         short maxLogHistory;
-        std::fstream logFd;
+        FILE *logFd;
         std::string timeFormat;
     };
 }

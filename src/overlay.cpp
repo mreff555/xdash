@@ -25,7 +25,7 @@ mDefaultScreen(XDefaultScreen(mDisplay))
     this->mAttrs.override_redirect = true;
     if (!XMatchVisualInfo(mDisplay, DefaultScreen(mDisplay), 32, TrueColor, &mVinfo))
     {
-        printf("No visual found supporting 32 bit color, terminating\n");
+        mLogger->log(LOG_LEVEL_FATAL, "No visual found supporting 32 bit color, terminating\n");
         exit(EXIT_FAILURE);
     }
     
@@ -38,8 +38,8 @@ mDefaultScreen(XDefaultScreen(mDisplay))
 
 Overlay::~Overlay()
 {
-    XCloseDisplay(this->mDisplay);
     mLogger->log(LOG_LEVEL_TRACE, "Stopping Overlay");
+    XCloseDisplay(this->mDisplay);
 }
 
 void Overlay::drawOverlay()

@@ -8,5 +8,7 @@ Trigger::Trigger(
     std::shared_ptr<xdash::Logger> logger)
 : mConfig(config), mLogger(logger)
 {
+    int num = 5;
+    mLogger->log(LOG_LEVEL_INFO, "Starting Trigger");
     
 }
