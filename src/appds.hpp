@@ -53,6 +53,8 @@ namespace xdash
 
         virtual ~AppDs();
 
+        void importDesktopEntries();
+
         private:
         std::shared_ptr<Config> mConfig;
         std::shared_ptr<Logger> mLogger;

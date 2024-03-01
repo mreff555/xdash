@@ -28,4 +28,7 @@ int main(int argc, char** argv)
     // Xdash xd;
     // xd.drawOverlay();
     //xdash::overlay_p->drawOverlay();
+
+    xdash::logger_p->setLogLevel(xdash::LOG_LEVEL_TRACE);
+    xdash::appDs_p->importDesktopEntries();
 }

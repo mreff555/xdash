@@ -14,10 +14,19 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(X11 REQUIRED) 
 find_package(Cairo REQUIRED)
 
+message(STATUS "Fetching SimpleIni")
+include(FetchContent)
+FetchContent_Declare(
+        SimpleIni
+        GIT_REPOSITORY https://github.com/brofield/simpleini.git
+        GIT_TAG v4.22
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE)
+FetchContent_MakeAvailable(SimpleIni)
+
 include_directories(src)
 include_directories(${Cairo_INCLUDE_DIRS})
 include_directories("/usr/include/cairo")
-
 
 #file(GLOB SOURCES "src/*.cpp")
 

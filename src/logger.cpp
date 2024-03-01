@@ -42,7 +42,7 @@ void Logger::log(LogLevelE lvl, const char *format, ...)
     va_list args;
     va_start(args, format);
     std::string logFmtStr = "LOG::";
-    logFmtStr += this->logLevelMap[this->logLevel];
+    logFmtStr += this->logLevelMap[lvl];
     logFmtStr += ":[";
     logFmtStr += std::string(this->getTimeNow());
     logFmtStr += "]: ";
