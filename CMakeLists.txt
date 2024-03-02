@@ -25,6 +25,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SimpleIni)
 
 include_directories(src)
+include_directories(build/third_party/simpleini)
 include_directories(${Cairo_INCLUDE_DIRS})
 include_directories("/usr/include/cairo")
 

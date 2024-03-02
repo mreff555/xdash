@@ -7,6 +7,9 @@
 #include <dirent.h>
 #include <cstdio>
 #include <cstdlib>
+#include <filesystem>
+// #include <SimpleIni.h>
+
 
 
 using namespace xdash;
@@ -47,23 +50,25 @@ void AppDs::importDesktopEntries()
 
     // Parse all desktop files into a vector;
     stringvec desktopFiles;
-    struct dirent *dp = nullptr;
     for(auto desktopPath : desktopPaths)
     {
-        mLogger->log(LOG_LEVEL_DEBUG, "Opening directory: %s", desktopPath.c_str());
-        DIR* dirp = opendir(desktopPath.c_str());
-
-        while((dp = readdir(dirp)) != NULL)
+        using rdit = std::filesystem::recursive_directory_iterator;
+        mLogger->log(LOG_LEVEL_DEBUG, "Entering Desktop path %s", desktopPath.c_str());
+        if(std::filesystem::exists(desktopPath))
         {
-            // std::string s(desktopPath + "/");
-            // s += std::string(dp->d_name);
-            // mLogger->log(LOG_LEVEL_DEBUG, "Found desktop path: %s\n", s.c_str());
-            // desktopFiles.push_back(s);
+            for(const auto &dirEntry : rdit(desktopPath))
+            {
+                if(dirEntry.is_regular_file())
+                {
+                    desktopFiles.push_back(dirEntry.path().string());
+                    mLogger->log(LOG_LEVEL_DEBUG, "Found file: %s", desktopFiles.back().c_str());
+                }
+            }
         }
-        closedir(dirp);
     }
 
-    // // Read in each file and parse to ini
+    // Read in each file and parse to ini
+
 
 
 }
